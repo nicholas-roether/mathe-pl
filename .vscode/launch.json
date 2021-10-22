@@ -1,0 +1,10 @@
+{
+	"configurations": [
+		{
+			"name": "Preview Presentation",
+			"request": "launch",
+			"type": "node-terminal",
+			"command": "manim -pql src/main.py Presentation; exit"
+		}
+	]
+}
