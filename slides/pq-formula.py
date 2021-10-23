@@ -85,7 +85,7 @@ class PQFormula(Scene):
 			x_range=[-10, 10, 2],
 			y_range=[-10, 10, 2],
 			x_length=5,
-			y_length=5
+			y_length=4
 		)
 		axes.shift(RIGHT * 2)
 		axis_labels = axes.get_axis_labels()
