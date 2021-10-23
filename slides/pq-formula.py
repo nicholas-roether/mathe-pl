@@ -82,10 +82,10 @@ class PQFormula(Scene):
 		self.play(solution_attempt_4.animate.align_on_border(LEFT + DOWN, buff=SMALL_BUFF))
 
 		axes = Axes(
-			x_range=[-10, 10, 1],
-			y_range=[-10, 10, 1],
+			x_range=[-10, 10, 2],
+			y_range=[-10, 10, 2],
 			x_length=5,
-			y_length=3.8
+			y_length=5
 		)
 		axes.shift(RIGHT * 2)
 		axis_labels = axes.get_axis_labels()
