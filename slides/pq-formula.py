@@ -7,7 +7,7 @@ class PQFormula(Scene):
 
 
 	def construct(self):
-		pq_formula = MathTex("{-", "p", "\\over 2} \\pm", "\\sqrt{", "{p", "^2 \\over 2} -", "q}")
+		pq_formula = MathTex("{-", "p", "\\over 2} \\pm", "\\sqrt{", "{p", "^2 \\over 4} -", "q}")
 
 		# Show the formula (duration: 1.5)
 		self.play(Write(pq_formula))
@@ -55,7 +55,7 @@ class PQFormula(Scene):
 		self.wait(0.5)
 
 		# Show plugging in values (duration: 2)
-		solution_attempt_1 = MathTex("\\Rightarrow x = {-", "2", "\\over 2}", "\\pm", "\\sqrt{", "{2", "^2 \\over 2}", "-", "4}")
+		solution_attempt_1 = MathTex("\\Rightarrow x = {-", "2", "\\over 2}", "\\pm", "\\sqrt{", "{2", "^2 \\over 4}", "-", "4}")
 		solution_attempt_1.shift(RIGHT)
 		solution_attempt_1[1].set_color(RED)
 		solution_attempt_1[5].set_color(RED)
@@ -64,15 +64,15 @@ class PQFormula(Scene):
 		self.wait(0.5)
 
 		# Show solution attempt (duration: 2)
-		solution_attempt_2 = MathTex("\\Rightarrow x = {-", "1", "\\pm", "\\sqrt{", "{4 \\over 2}", "-", "4}")
+		solution_attempt_2 = MathTex("\\Rightarrow x = {-", "1", "\\pm", "\\sqrt{", "{4 \\over 4}", "-", "4}")
 		solution_attempt_2.shift(RIGHT)
 		self.play(ReplacementTransform(solution_attempt_1, solution_attempt_2), run_time=0.5)
 
-		solution_attempt_3 = MathTex("\\Rightarrow x = {-", "1", "\\pm", "\\sqrt{", "2", "-", "4}")
+		solution_attempt_3 = MathTex("\\Rightarrow x = {-", "1", "\\pm", "\\sqrt{", "1", "-", "4}")
 		solution_attempt_3.shift(RIGHT)
 		self.play(ReplacementTransform(solution_attempt_2, solution_attempt_3), run_time=0.5)
 
-		solution_attempt_4 = MathTex("\\Rightarrow x = {-", "1", "\\pm", "\\sqrt{", "-2", "}")
+		solution_attempt_4 = MathTex("\\Rightarrow x = {-", "1", "\\pm", "\\sqrt{", "-3", "}")
 		solution_attempt_4.shift(RIGHT)
 		self.play(ReplacementTransform(solution_attempt_3, solution_attempt_4), run_time=0.5)
 		self.wait(0.5)
