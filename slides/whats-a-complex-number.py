@@ -42,11 +42,12 @@ class WhatsAComplexNumber(Scene):
 
 		# prepare complex number definition
 		self.play(Unwrite(i_example_final), run_time=0.5)
-		z_eq_tex = MathTex("z =")
+		z_eq_tex = MathTex("z", "=")
 		i_tex = MathTex("i")
 		i_tex.next_to(z_eq_tex, aligned_edge=DOWN)
 		z_eq_i_tex = VGroup(z_eq_tex, i_tex)
 		z_eq_i_tex.move_to(ORIGIN)
+		z_eq_i_tex.shift(RIGHT * i_definition[2].get_x() - z_eq_tex[1].get_x())
 		self.play(Write(z_eq_i_tex))
 
 		# show imaginary part
