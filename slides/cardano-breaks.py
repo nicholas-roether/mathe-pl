@@ -151,5 +151,3 @@ class CardanoBreaks(Scene):
 		label = MathTex("2", color="RED")
 		label.next_to(found_dot, DOWN + RIGHT)
 		self.play(Write(label), Create(found_dot))
-
-		self.wait()
