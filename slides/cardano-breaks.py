@@ -2,7 +2,7 @@ from manim import *;
 
 class CardanoBreaks(Scene):
 	def construct(self):
-		# Show counter-example
+		# Show counter-example (duration: 2.5)
 		axes = Axes(
 			x_range=[-4, 4, 1],
 			y_range=[-3, 10, 2],
@@ -32,7 +32,7 @@ class CardanoBreaks(Scene):
 		self.play(Create(counter_example_graph), *list(map(lambda dot: Create(dot), root_dots)), Write(counter_example_graph_label))
 		self.wait(0.5)
 
-		# Plug stuff into formula
+		# Plug stuff into formula (duration: 4)
 		plot = VGroup(axes, axis_labels, counter_example_graph, counter_example_graph_label, *root_dots)
 		self.play(FadeOut(plot), run_time=0.5)
 		self.play(counter_example.animate.set_x(0))
@@ -43,10 +43,10 @@ class CardanoBreaks(Scene):
 		)
 		solve_initial.scale(0.7)
 		solve_initial.next_to(counter_example, DOWN, buff=MED_LARGE_BUFF)
-		self.play(Create(solve_initial))
+		self.play(Write(solve_initial))
 		self.wait(0.5)
 
-		# Solve till negative \\sqrt
+		# Solve till negative sqrt (duration: 2)
 		solve_step_1 = MathTex(
 			"\\Rightarrow x = \\sqrt[3]{ -2 + \\sqrt{ {16 \\over 4} + {-216 \\over 27}}}",
 			"+ \\sqrt[3]{ -2 - \\sqrt{ {16 \\over 4} + {-216 \\over 27}}}"
@@ -66,7 +66,7 @@ class CardanoBreaks(Scene):
 		self.play(ReplacementTransform(solve_step_2, solve_step_3), run_time=0.5)
 		self.wait(0.5)
 
-		# Rewrite negative square roots
+		# Rewrite negative square roots (duration: 1)
 		solve_step_4 = MathTex(
 			"\\Rightarrow x = \\sqrt[3]{ -2 + 2\\sqrt{-1}}",
 			"+ \\sqrt[3]{ -2 - 2\\sqrt{-1}}"
@@ -74,10 +74,10 @@ class CardanoBreaks(Scene):
 		self.play(ReplacementTransform(solve_step_3, solve_step_4), run_time=0.5)
 		self.wait(0.5)
 
-		# make stuff much more complicated
+		# make stuff much more complicated (duration: 3)
 		solve_step_5 = MathTex(
-			"\\Rightarrow x = \\sqrt[3]{", "1 - 3 + 3\\sqrt{-1} - \\sqrt{-1}}",
-			"+ \\sqrt[3]{", "3 - 1 - 3\\sqrt{-1} + \\sqrt{-1}}"
+			"\\Rightarrow x = \\sqrt[3]{1 - 3 + 3\\sqrt{-1} - \\sqrt{-1}}",
+			"+ \\sqrt[3]{3 - 1 - 3\\sqrt{-1} + \\sqrt{-1}}"
 		).scale(0.7)
 		self.play(ReplacementTransform(solve_step_4, solve_step_5), run_time=0.5)
 
@@ -105,12 +105,12 @@ class CardanoBreaks(Scene):
 		solve_step_9 = MathTex(
 			"\\Rightarrow x =", 
 			"\\sqrt[3]{1\\relax^3 + 3 \\cdot 1\\relax \\cdot \\sqrt{-1}^2 + 3 \\cdot 1\\relax^2 \\cdot \\sqrt{-1} + \\sqrt{-1}^3} \\\\",
-			"+ \\sqrt[3]{1\\relax^3 + 3 \\cdot 1\\relax \\cdot (-\\sqrt{-1})^2 + 3 \\cdot 1\\relax^2 \\cdot (-\\sqrt{-1}) + (-\\sqrt{-1})^3}",
+			"+ \\sqrt[3]{1\\relax^3 + 3 \\cdot 1\\relax \\cdot (-\\sqrt{-1})^2 + 3 \\cdot 1\\relax^2 \\cdot (-\\sqrt{-1}) + (-\\sqrt{-1})^3}"
 		).scale(0.7)
 		self.play(ReplacementTransform(solve_step_8, solve_step_9), run_time=0.5)
 		self.wait(0.5)
 
-		# Show cubic binomial formula
+		# Show cubic binomial formula (duration: 2.5)
 		cubic_binomial = MathTex("(a + b)^3 = a^3 + 3ab^2 + 3a^2 b + b^3")
 		cubic_binomial.set_color(RED)
 		cubic_binomial.scale(0.7)
@@ -119,14 +119,16 @@ class CardanoBreaks(Scene):
 		self.play(Write(cubic_binomial), Create(cubic_binomial_box))
 		self.wait(0.5)
 
-		# complete the cube
+		# complete the cube (duration: 1.5)
 		solve_step_10 = MathTex(
 			"\\Rightarrow x =", 
-			"\\sqrt[3]{", "(1 + \\sqrt{-1})^3}",
-			"+ \\sqrt[3]{", "(1 - \\sqrt{-1})^3}",
+			"\\sqrt[3]{(1 + \\sqrt{-1})^3}",
+			"+ \\sqrt[3]{(1 - \\sqrt{-1})^3}",
 		).scale(0.7)
-		self.play(ReplacementTransform(solve_step_9, solve_step_10), run_time=0.5)
+		self.play(ReplacementTransform(solve_step_9, solve_step_10))
+		self.wait(0.5)
 
+		# resolve cube roots (duration: 1.5)
 		solve_step_11 = MathTex(
 			"\\Rightarrow x =", 
 			"1", "+", "\\sqrt{-1}",
@@ -136,7 +138,7 @@ class CardanoBreaks(Scene):
 		self.play(Unwrite(cubic_binomial), Uncreate(cubic_binomial_box), run_time=0.5)
 		self.wait(0.5)
 
-		# Solution
+		# Solution (duration: 3.5)
 		solve_step_12 = MathTex("\\Rightarrow x =", "1", "+", "1")
 		self.play(TransformMatchingTex(solve_step_11, solve_step_12), run_time=2)
 		
@@ -144,10 +146,8 @@ class CardanoBreaks(Scene):
 		self.play(ReplacementTransform(solve_step_12, solution))
 		self.wait(0.5)
 
-		# Check solution
+		# Check solution (duration: till end)
 		self.play(counter_example.animate.align_on_border(LEFT), solution.animate.align_on_border(LEFT))
 		self.play(FadeIn(axes), FadeIn(axis_labels), FadeIn(counter_example_graph))
 		found_dot = Dot(axes.coords_to_point(2, 0), color=RED, radius=DEFAULT_DOT_RADIUS * 1.2)
-		label = MathTex("2", color="RED")
-		label.next_to(found_dot, DOWN + RIGHT)
-		self.play(Write(label), Create(found_dot))
+		self.play(Create(found_dot))
