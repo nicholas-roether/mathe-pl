@@ -3,30 +3,30 @@ from manim import *
 
 class WhatsAComplexNumber(Scene):
 	def construct(self):
-		# Show sqrt(-1)
+		# Show sqrt(-1) (duration: 1.5)
 		sqrt_neg_1 = MathTex("\\sqrt{", "-1", "}")
 		sqrt_neg_1.scale(1.5)
 		self.play(Write(sqrt_neg_1))
 		self.wait(0.5)
 
-		# show i
+		# show i (duration: 2.5)
 		self.play(sqrt_neg_1.animate.scale(1 / 1.5))
 		i_sqrt_def = MathTex("i", "=", "\\sqrt{", "-1", "}")
 		self.play(TransformMatchingTex(sqrt_neg_1, i_sqrt_def))
 		self.wait(0.5)
 
-		# show i definition
+		# show i definition (duraiton: 1.5)
 		i_definition = MathTex("i", "^2", "=", "-1")
 		self.play(TransformMatchingTex(i_sqrt_def, i_definition))
 		self.wait(0.5)
 
-		# show i usage example
+		# show i usage example (duration: 2.5)
 		self.play(i_definition.animate.align_on_border(UP))
 		i_example = MathTex("\\sqrt{-4}")
 		self.play(Write(i_example))
 		self.wait(0.5)
 
-		# reduce i usage example
+		# reduce i usage example (duration: 4.5)
 		i_example_step_1 = MathTex("\\sqrt{-4}", "=", "\\sqrt{-", "4}")
 		self.play(TransformMatchingTex(i_example, i_example_step_1))
 
@@ -40,7 +40,7 @@ class WhatsAComplexNumber(Scene):
 		self.play(TransformMatchingTex(i_example_step_3, i_example_final))
 		self.wait(0.5)
 
-		# prepare complex number definition
+		# prepare complex number definition (duration: 2)
 		self.play(Unwrite(i_example_final), run_time=0.5)
 		z_eq_tex = MathTex("z", "=")
 		i_tex = MathTex("i")
@@ -49,8 +49,9 @@ class WhatsAComplexNumber(Scene):
 		z_eq_i_tex.move_to(ORIGIN)
 		z_eq_i_tex.shift(RIGHT * i_definition[2].get_x() - z_eq_tex[1].get_x())
 		self.play(Write(z_eq_i_tex))
+		self.wait(0.5)
 
-		# show imaginary part
+		# show imaginary part (duration: 6)
 		imag_decimal = DecimalNumber(
 			0,
 			num_decimal_places=2,
@@ -70,7 +71,7 @@ class WhatsAComplexNumber(Scene):
 		self.play(FadeOut(imag_decimal, run_time=0.2), TransformMatchingTex(i_tex, imag_part))
 		self.wait(0.5)
 
-		# show real part
+		# show real part (duration: 6)
 		real_decimal = DecimalNumber(
 			0,
 			num_decimal_places=2,
@@ -96,13 +97,13 @@ class WhatsAComplexNumber(Scene):
 		self.play(complex_number_def.animate.move_to(ORIGIN))
 		self.wait(0.5)
 
-		# show complex number set symbol
+		# show complex number set symbol (duration: 1.5)
 		complex_number_def_set = MathTex("z", "=", "a\\relax", "+", "b\\relax", "i", "\\in", "\\mathbb{C}")
 		self.color_vars(complex_number_def_set)
 		self.play(FadeOut(z_eq_tex, run_time=0.2), TransformMatchingTex(complex_number_tex, complex_number_def_set))
 		self.wait(0.5)
 
-		# Show real and imaginary parts
+		# Show real and imaginary parts (duration: 4)
 		self.play(Unwrite(i_definition), run_time=0.5)
 		self.play(complex_number_def_set.animate.align_on_border(UP))
 
@@ -124,7 +125,7 @@ class WhatsAComplexNumber(Scene):
 		self.play(Write(real_imag_part_explanation))
 		self.wait(0.5)
 
-		# prepare arithmetic demonstration
+		# prepare arithmetic demonstration (duration: 3)
 		self.play(Unwrite(complex_number_def_set), Unwrite(real_imag_part_explanation), run_time=0.5)
 		addition = MathTex("({{a\\relax}} + {{b\\relax}}i) + ({{c\\relax}} + {{d\\relax}}i)")
 		subtraction = MathTex("({{a\\relax}} + {{b\\relax}}i) - ({{c\\relax}} + {{d\\relax}}i)")
@@ -142,7 +143,7 @@ class WhatsAComplexNumber(Scene):
 		self.play(Write(demonstrations))
 		self.wait(0.5)
 
-		# demonstrate arithmetic
+		# demonstrate arithmetic (duration: till end)
 		addition_sol = MathTex(*addition.tex_strings, "= ({{a\\relax}} + {{c\\relax}}) + ({{b\\relax}} + {{d\\relax}})i")
 		subtraction_sol = MathTex(*subtraction.tex_strings, "= ({{a\\relax}} - {{c\\relax}}) + ({{b\\relax}} - {{d\\relax}})i")
 		multiplication_sol = MathTex(*multiplication.tex_strings, "= ({{a\\relax}}{{c\\relax}} - {{b\\relax}}{{d\\relax}}) + ({{a\\relax}}{{d\\relax}} + {{b\\relax}}{{c\\relax}})i")
@@ -164,8 +165,6 @@ class WhatsAComplexNumber(Scene):
 			TransformMatchingTex(division, division_sol)
 		)
 		self.wait(0.5)
-
-		self.wait()
 
 	def color_vars(self, *texs: MathTex):
 		for tex in texs:
