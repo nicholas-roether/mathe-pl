@@ -3,7 +3,7 @@ from numpy import arange
 
 class CubicEquations(Scene):
 	def construct(self):
-		# Show a cubic graph
+		# Show a cubic graph (duration: 2.5)
 		axes = Axes(
 			x_range=[-3, 3, 1],
 			y_range=[-3, 3, 1],
@@ -16,7 +16,7 @@ class CubicEquations(Scene):
 		self.play(Create(x_cubed_graph))
 		self.wait(0.5)
 
-		# Show depressed cubic form
+		# Show depressed cubic form (duration: 2.5)
 		plot = VGroup(axes, axis_labels, x_cubed_graph)
 		self.play(plot.animate.align_on_border(RIGHT))
 		depressed_cubic = MathTex("x^3 + {{p}}x + {{q}} = 0")
@@ -26,16 +26,16 @@ class CubicEquations(Scene):
 		self.play(Write(depressed_cubic))
 		self.wait(0.5)
 
-		# Show "cardano's formula" text
+		# Show "cardano's formula" text (duration: 2.8)
 		self.play(Uncreate(plot), run_time=0.5)
 		self.play(depressed_cubic.animate.move_to(ORIGIN), duration=0.5)
 		cardanos_formula_text = Text("Cardanos Formel", font_size=35)
 		cardanos_formula_text.align_on_border(UP, buff=SMALL_BUFF)
 		self.play(Write(cardanos_formula_text))
-		self.play(depressed_cubic.animate.next_to(cardanos_formula_text, DOWN, buff=MED_LARGE_BUFF), duration=0.5)
 		self.wait(0.5)
 
-		# Show cardano's formula
+		# Show cardano's formula (duration: 3)
+		self.play(depressed_cubic.animate.next_to(cardanos_formula_text, DOWN, buff=MED_LARGE_BUFF), duration=0.5)
 		cardanos_formula = MathTex(
 			"\\Rightarrow x = \\sqrt[3]{ -", "{q", "\\over 2} +", "\\sqrt{", "{q", "^2 \\over 4} +", "{p", "^3 \\over 27} } } + ",
 			"\\sqrt[3]{ -", "{q", "\\over 2} -", "\\sqrt{", "{q", "^2 \\over 4} +", "{p", "^3 \\over 27} } }"
@@ -50,7 +50,7 @@ class CubicEquations(Scene):
 		self.play(Write(cardanos_formula))
 		self.wait(0.5)
 
-		# Show example
+		# Show example (duration: 2)
 		self.play(Unwrite(cardanos_formula_text), Unwrite(cardanos_formula), Unwrite(depressed_cubic), run_time=0.5)
 
 		example = MathTex("f(x) = x^3 + {{6}}x {{-2}} = 0")
@@ -60,7 +60,7 @@ class CubicEquations(Scene):
 		self.play(Write(example))
 		self.wait(0.5)
 
-		# Plug numbers into formula
+		# Plug numbers into formula (duration: 2.5)
 		example_solve_step_1 = MathTex(
 			"\\Rightarrow x = \\sqrt[3]{ -{(", "-2", ") \\over 2}", "+ \\sqrt{ {(", "-2", ")^2 \\over 4} +", "{6", "^3 \\over 27} } } + ",
 			"\\sqrt[3]{ -{(", "-2", ") \\over 2}", "- \\sqrt{ {(", "-2", ")^2 \\over 4} +", "{6", "^3 \\over 27} } }",
@@ -71,7 +71,7 @@ class CubicEquations(Scene):
 		self.play(Write(example_solve_step_1))
 		self.wait(0.5)
 
-		# Solve formula
+		# Solve formula (duration: 4.5)
 		example_solve_step_2 = MathTex(
 			"\\Rightarrow x = \\sqrt[3]{1 + \\sqrt{ {4 \\over 4}", "+ {216 \\over 27} } } + ",
 			"\\sqrt[3]{1 - \\sqrt{ {4 \\over 4}", "+ {216 \\over 27} } }",
@@ -111,7 +111,7 @@ class CubicEquations(Scene):
 		self.play(Write(example_solution_approx))
 		self.wait(0.5)
 
-		# Verify solution
+		# Verify solution (duration: 3.5)
 		axes = Axes(
 			x_range=[-2, 2, 0.5],
 			y_range=[-2, 2, 0.5],

@@ -7,7 +7,7 @@ class PQFormula(Scene):
 
 
 	def construct(self):
-		pq_formula = MathTex("{-", "p", "\\over 2} \\pm", "\\sqrt{", "{p", "^2 \\over 4} -", "q}")
+		pq_formula = MathTex("-{", "p", "\\over 2} \\pm", "\\sqrt{", "{p", "^2 \\over 4} -", "q}")
 
 		# Show the formula (duration: 1.5)
 		self.play(Write(pq_formula))
