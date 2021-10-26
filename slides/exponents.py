@@ -24,7 +24,7 @@ class Exponents(Scene):
 			y_length=4,
 		)
 		axis_labels = axes.get_axis_labels(Tex("Re"), Tex("Im"))
-		z_0 = ComplexValueTracker(value=complex(0.7, 1.3))
+		z_0 = ComplexValueTracker(value=complex(0.7, 1.2))
 		def num_to_point(z: complex):
 			return axes.coords_to_point(z.real, z.imag)
 
@@ -46,9 +46,10 @@ class Exponents(Scene):
 		z_3_label = MathTex("z^4")
 		z_3_label.next_to(z_3_dot, UR, buff=SMALL_BUFF).add_updater(lambda l: l.next_to(z_3_dot, UR, buff=SMALL_BUFF))
 
-		exp_curve = axes.get_parametric_curve(lambda t: self.compute_curve_at_t(z_0.get_value(), t), t_range=np.array([0, TAU]), color=BLUE)
-		exp_curve.add_updater(lambda c: c.become(axes.get_parametric_curve(lambda t: self.compute_curve_at_t(z_0.get_value(), t), t_range=np.array([0, TAU]), color=BLUE)))
+		exp_curve = axes.get_parametric_curve(lambda t: self.compute_curve_at_t(z_0.get_value(), t), t_range=np.array([0, 2 * TAU]), color=BLUE)
+		exp_curve.add_updater(lambda c: c.become(axes.get_parametric_curve(lambda t: self.compute_curve_at_t(z_0.get_value(), t), t_range=np.array([0, 2 *  TAU]), color=BLUE)))
 
+		# Initial setup (duration: 2.5)
 		self.play(
 			Create(axes),
 			Write(axis_labels)
@@ -56,27 +57,30 @@ class Exponents(Scene):
 		self.play(Create(z_0_dot), Write(z_0_label))
 		self.wait(0.5)
 
-
+		# Draw exponents (duration: 3.5)
 		self.play(Create(z_1_dot), Write(z_1_label))
 		self.play(Create(z_2_dot), Write(z_2_label))
 		self.play(Create(z_3_dot), Write(z_3_label))
 		self.wait(0.5)
 
-
+		# Draw curve (duration: 1.5)
 		self.play(Create(exp_curve))
 		self.wait(0.5)
 
-
+		# Move curve around (duration: 2.5)
 		self.play(z_0.animate.set_value(complex(1, 2)))
 		self.play(z_0.animate.set_value(complex(2, 1)))
 		self.wait(0.5)
 
+		# Move curve on real axis (duration: 1.5)
 		self.play(z_0.animate.set_value(complex(2, 0)))
 		self.wait(0.5)
 
+		# Move curve back (duration: 1.5)
 		self.play(z_0.animate.set_value(complex(2, 1)))
 		self.wait(0.5)
-
+		
+		# Draw central circle and move z into it (duration: till end)
 		circle = Circle(axes.get_y_unit_size(), color=GRAY)
 		circle.move_to(axes.get_origin())
 		circle.set_fill(GRAY, opacity=0.3)
