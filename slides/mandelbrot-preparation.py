@@ -2,14 +2,14 @@ from manim import *;
 
 class MandelbrotPreparation(Scene):
 	def construct(self):
-		# Show series definition
+		# Show series definition (duration: 1.5)
 		series_def = MathTex("z_n = z_{n-1}^2 + {{c}}")
 		series_def.set_color_by_tex("c", GREEN)
 		series_def.scale(1.5)
 		self.play(Write(series_def))
 		self.wait(0.5)
 
-		# Show that z0 equals 0
+		# Show that z0 equals 0 (duration: 1.5)
 		z_0_eq_0_tex = MathTex("{{z_0}} = 0")
 		z_0_eq_0_tex.set_color_by_tex("z_0", RED)
 		z_0_eq_0_tex.scale(1.2)
@@ -17,7 +17,7 @@ class MandelbrotPreparation(Scene):
 		self.play(Write(z_0_eq_0_tex))
 		self.wait(0.5)
 
-		# Show axes
+		# Show axes (duration: 3)
 		series_def_group = VGroup(series_def, z_0_eq_0_tex)
 		self.play(series_def_group.animate.scale(1 / 1.5), run_time=0.5)
 		self.play(series_def_group.animate.align_on_border(UL, buff=SMALL_BUFF))
@@ -35,15 +35,15 @@ class MandelbrotPreparation(Scene):
 		self.play(Create(axes), Write(axis_labels))
 		self.wait(0.5)
 
-		# Show z_0 dot
+		# Show z_0 dot (duration: 1.5)
 		self.play(Create(z_0_dot), Write(z_0_label))
 		self.wait(0.5)
 
-		# Hide z_0 dot
+		# Hide z_0 dot (duration: 1.5)
 		self.play(Uncreate(z_0_dot), Unwrite(z_0_label))
 		self.wait(0.5)
 
-		# Show c dot
+		# Show c dot (duration: 1.5)
 		c = ComplexValueTracker(complex(0.3, 0.7))
 		c_dot = Dot(axes.coords_to_point(c.get_value().real, c.get_value().imag), color=GREEN)
 		c_dot.add_updater(lambda d: d.move_to(axes.coords_to_point(c.get_value().real, c.get_value().imag)))
@@ -52,7 +52,7 @@ class MandelbrotPreparation(Scene):
 		self.play(Create(c_dot), Write(c_dot_label))
 		self.wait(0.5)
 
-		# Show first series step
+		# Show first series step (duration: 5)
 		start_num = ComplexValueTracker(complex(0, 0))
 		def num_to_point(num: complex):
 			return axes.coords_to_point(num.real, num.imag)
@@ -94,14 +94,14 @@ class MandelbrotPreparation(Scene):
 
 		step_1_square_arrow = CurvedArrow(get_start_point(), get_squared_point() + LEFT * 0.001, color=ORANGE, angle=TAU * 0.8)
 		self.play(Create(step_1_square_arrow), Write(square_arrow_label))
-		self.play(Create(squared_dot))
+		self.play(Create(squared_dot), run_time=0.5)
 		self.play(FadeOut(step_1_square_arrow), FadeOut(square_arrow_label), run_time=0.5)
 		self.play(Create(add_arrow_group))
-		self.play(FadeOut(add_arrow_group), FadeOut(squared_dot))
+		self.play(FadeOut(add_arrow_group), FadeOut(squared_dot), run_time=0.5)
 		start_num.set_value(start_num.get_value()**2 + c.get_value())
 		self.wait(0.5)
 
-		# Show remaining demonstration series steps
+		# Show remaining demonstration series steps (duration: 18)
 		step_2_dot = Dot(get_squared_added_point())
 		step_2_dot.add_updater(lambda d: d.move_to(num_to_point(c.get_value()**2 + c.get_value())))
 		animate_steps_to_dot(step_2_dot)
@@ -132,12 +132,13 @@ class MandelbrotPreparation(Scene):
 
 		self.wait(0.5)
 
-		# Move c around
+		# Move c around  (duration: 2.5)
 		self.play(c.animate.set_value(complex(-0.2, 0.2)))
 		self.play(c.animate.set_value(complex(-1, -1)))
 		self.play(c.animate.set_value(complex(0.5, 0.1)))
+		self.wait(0.5)
 
-		# Center series definition
+		# Center series definition (duration: 2)
 		self.play(
 			Uncreate(axes),
 			Unwrite(axis_labels),
@@ -150,12 +151,13 @@ class MandelbrotPreparation(Scene):
 			Uncreate(vector_0_1),
 			Uncreate(vector_1_2),
 			Uncreate(vector_2_3),
-			Uncreate(vector_3_4)
+			Uncreate(vector_3_4),
+			run_time=0.5
 		)
 		self.play(series_def.animate.move_to(ORIGIN))
 		self.wait(0.5)
 
-		# Prepare demonstration of algorithm
+		# Prepare demonstration of algorithm (duration: 3.5)
 		self.play(series_def.animate.align_on_border(UP, buff=SMALL_BUFF))
 		c_eq_1_tex = MathTex("{{c}} = 1")
 		c_eq_1_tex.set_color_by_tex("c", GREEN)
@@ -185,21 +187,21 @@ class MandelbrotPreparation(Scene):
 		algorithm_step_8_0.set_color_by_tex("1", GREEN)
 		algorithm_step_8_1 = MathTex("26")
 
-		# Start with 0
+		# Start with 0 (duration: 1.5)
 		self.play(Write(algorithm_step_0))
 		self.wait(0.5)
 
-		# Square
+		# Square (duration: 2.5)
 		self.play(TransformMatchingTex(algorithm_step_0, algorithm_step_1_0))
 		self.play(TransformMatchingTex(algorithm_step_1_0, algorithm_step_1_1))
 		self.wait(0.5)
 
-		# Add 1
+		# Add 1 (duration: 2.5)
 		self.play(TransformMatchingTex(algorithm_step_1_1, algorithm_step_2_0))
 		self.play(TransformMatchingTex(algorithm_step_2_0, algorithm_step_2_1))
 		self.wait(0.5)
 
-		# Continue algorithm
+		# Continue algorithm (duration: 15)
 		self.play(TransformMatchingTex(algorithm_step_2_1, algorithm_step_3_0))
 		self.play(TransformMatchingTex(algorithm_step_3_0, algorithm_step_3_1))
 		self.wait(0.5)
@@ -219,11 +221,11 @@ class MandelbrotPreparation(Scene):
 		self.play(TransformMatchingTex(algorithm_step_8_0, algorithm_step_8_1))
 		self.wait(0.5)
 
-		# Prepare complex algorithm demonstration
+		# Prepare complex algorithm demonstration (duration: 1.5)
 		c_eq_1_plus_i_tex = MathTex("{{c}} = 1", "+ i")
 		c_eq_1_plus_i_tex.set_color_by_tex("c", GREEN)
 		c_eq_1_plus_i_tex.match_y(c_eq_1_tex)
-		self.play(Unwrite(algorithm_step_8_1), TransformMatchingTex(c_eq_1_tex, c_eq_1_plus_i_tex))
+		self.play(Unwrite(algorithm_step_8_1, run_time=0.5), TransformMatchingTex(c_eq_1_tex, c_eq_1_plus_i_tex), run_time=1)
 		self.wait(0.5)
 
 		cmpx_algorithm_step_0 = MathTex("0")
@@ -241,39 +243,39 @@ class MandelbrotPreparation(Scene):
 		cmpx_algorithm_step_4_1 = MathTex("1", "+", "3", "i")
 		ellipsis = Tex("...")
 
-		# Start with 0
+		# Start with 0 (duration: 1.5)
 		self.play(Write(cmpx_algorithm_step_0))
 		self.wait(0.5)
 
-		# Square
+		# Square (duration: 2.5)
 		self.play(TransformMatchingTex(cmpx_algorithm_step_0, cmpx_algorithm_step_1_0))
 		self.play(TransformMatchingTex(cmpx_algorithm_step_1_0, cmpx_algorithm_step_1_1))
 		self.wait(0.5)
 
-		# Add c
+		# Add c (duration: 2.5)
 		self.play(TransformMatchingTex(cmpx_algorithm_step_1_1, cmpx_algorithm_step_2_0))
 		self.play(TransformMatchingTex(cmpx_algorithm_step_2_0, cmpx_algorithm_step_2_1))
 		self.wait(0.5)
 
-		# Square
+		# Square (duration: 1.5)
 		self.play(TransformMatchingTex(cmpx_algorithm_step_2_1, cmpx_algorithm_step_3_0))
 		self.wait(0.5)
 
-		# Expand bracket
+		# Expand bracket (duration: 1.5)
 		self.play(TransformMatchingTex(cmpx_algorithm_step_3_0, cmpx_algorithm_step_3_1))
 		self.wait(0.5)
 
-		# Multiply out
+		# Multiply out (duartion: 2.5)
 		self.play(TransformMatchingTex(cmpx_algorithm_step_3_1, cmpx_algorithm_step_3_2))
 		self.play(TransformMatchingTex(cmpx_algorithm_step_3_2, cmpx_algorithm_step_3_3))
 		self.wait(0.5)
 
-		# Add c again
+		# Add c again (duration: 2.5)
 		self.play(TransformMatchingTex(cmpx_algorithm_step_3_3, cmpx_algorithm_step_4_0))
 		self.play(TransformMatchingTex(cmpx_algorithm_step_4_0, cmpx_algorithm_step_4_1))
 		self.wait(0.5)
 
-		# Add ellipsis
+		# Add ellipsis (duration: till end)
 		ellipsis.next_to(cmpx_algorithm_step_4_1, DOWN)
 		self.play(Write(ellipsis))
 		self.wait(0.5)
